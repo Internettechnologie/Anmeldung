@@ -8,6 +8,8 @@
 
 $user = 'test';
 $pass = 'test';
+$email = 'test';
+
 ?>
 
 <!DOCTYPE html>
@@ -32,20 +34,24 @@ $pass = 'test';
         <span>Passwort: </span>
         <input type="text" placeholder="Passwort" name="pass" value="<?php $pass ?>">
         <br>
-        <button type="submit" placeholder="Login" name="login" value="login">
+        <span>EMail: </span>
+        <input type="email" placeholder="EMail" name="email" value="<?php $email ?>">
+        <br>
+        <button type="submit" name="login" value="login">Registrieren</button>
+
     </form>
-
-    <?php
-    if (isset($user) && isset($pass)) {
-//        todo Datenbankverbindung und select + Login durchführen
-        login($user, $pass);
-    }
-    function login($nutzer, $passwort)
-    {
-        echo $nutzer+"   "+$passwort;
-    }
-
-    ?>
+<!---->
+<!--    --><?php
+//    if (isset($user) && isset($pass)) {
+////        todo Datenbankverbindung und select + Login durchführen
+//            login($user, $pass);
+//    }
+//    function einloggen($nutzer, $passwort)
+//    {
+//        echo $nutzer + "   " + $passwort;
+//    }
+//
+//    ?>
 
 </main>
 
