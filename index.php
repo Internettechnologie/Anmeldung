@@ -1,59 +1,33 @@
 <?php
-/**
- * Created by IntelliJ IDEA.
- * User: doetken
- * Date: 27.10.2016
- * Time: 09:14
- */
+session_name('bumpr');
+session_start();
+require 'server/config.php';
 
-$user = 'test';
-$pass = 'test';
-$email = 'test';
+if (isset($_GET['logout']) && isset($_SESSION['login'])) {
+    session_destroy();
+    header('Location: ./');
+}
 
-?>
+if (isset($_SESSION['login']) && $_SESSION['login']) {
 
-<!DOCTYPE html>
-<html lang="de">
-<head>
-    <meta charset="UTF-8">
-    <title>Login</title>
-</head>
-<body>
-<header>
-    <h1>
-        Anmeldung
-    </h1>
-</header>
-<main>
-    <form action="index.php">
-        <span>Benutzername:    </span>
+    require 'server/newBlogPost.php';
+    require 'server/overviewBlogPosts.php';
+    require 'pages/site_home.php';
 
-        <input type="text" placeholder="Name" name="nutzer" value="<?php $user ?>">
+} else if (isset($_POST['username']) && isset($_POST['password'])) {
 
-        <br>
-        <span>Passwort: </span>
-        <input type="text" placeholder="Passwort" name="pass" value="<?php $pass ?>">
-        <br>
-        <span>EMail: </span>
-        <input type="email" placeholder="EMail" name="email" value="<?php $email ?>">
-        <br>
-        <button type="submit" name="login" value="login">Registrieren</button>
+    $user = $_POST['username'];
+    $password = sha1($_POST['password']);
 
-    </form>
-<!---->
-<!--    --><?php
-//    if (isset($user) && isset($pass)) {
-////        todo Datenbankverbindung und select + Login durchführen
-//            login($user, $pass);
-//    }
-//    function einloggen($nutzer, $passwort)
-//    {
-//        echo $nutzer + "   " + $passwort;
-//    }
-//
-//    ?>
+    require 'server/authentication.php';
 
-</main>
+    checkUserLoginAllowed($user, $password);
 
-</body>
-</html>
+    header('Location: ./');
+
+} else {
+
+    require 'pages/site_login.php';
+
+}
+
