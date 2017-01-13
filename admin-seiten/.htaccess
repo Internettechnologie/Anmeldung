@@ -1,0 +1,4 @@
+AuthType Basic
+AuthName "Bitte melden Sie sich an"
+AuthUserFile /var/www/html/admin-seiten/.htpasswd
+require valid-user 
